@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manage Rooms</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a> |
+        <a href="{{ url_for('check_availability') }}">Check Availability</a>
+    </nav>
+
+    <h1>Manage Rooms</h1>
+
+    <h2>Add Room</h2>
+    <form action="{{ url_for('add_room') }}" method="post">
+        <input type="text" name="type" placeholder="Room Type" required>
+        <input type="number" name="price" placeholder="Price" required>
+        <button type="submit">Add Room</button>
+    </form>
+
+    <h2>Room List</h2>
+    <table border="1">
+        <tr>
+            <th>Room ID</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Status</th>
+        </tr>
+        {% for room in rooms %}
+        <tr>
+            <td>{{ room[0] }}</td>
+            <td>{{ room[1] }}</td>
+            <td>{{ room[2] }}</td>
+            <td>{{ room[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

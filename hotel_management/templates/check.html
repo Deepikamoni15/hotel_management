@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Room Availability</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a> |
+        <a href="{{ url_for('manage_rooms') }}">Manage Rooms</a>
+    </nav>
+
+    <h1>Available Rooms</h1>
+    <table border="1">
+        <tr>
+            <th>Room ID</th>
+            <th>Type</th>
+            <th>Price</th>
+        </tr>
+        {% for room in available_rooms %}
+        <tr>
+            <td>{{ room[0] }}</td>
+            <td>{{ room[1] }}</td>
+            <td>{{ room[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

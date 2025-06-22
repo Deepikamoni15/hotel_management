@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hotel Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a> |
+        <a href="{{ url_for('manage_rooms') }}">Manage Rooms</a> |
+        <a href="{{ url_for('check_availability') }}">Check Availability</a>
+    </nav>
+
+    <h1>Hotel Rooms</h1>
+    
+    <h2>Add Customer</h2>
+    <form action="{{ url_for('add_customer') }}" method="post">
+        <input type="text" name="name" placeholder="Customer Name" required>
+        <input type="text" name="contact" placeholder="Contact" required>
+        <button type="submit">Add Customer</button>
+    </form>
+
+    <h2>Book a Room</h2>
+    <table border="1">
+        <tr>
+            <th>Room ID</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for room in rooms %}
+        <tr>
+            <td>{{ room[0] }}</td>
+            <td>{{ room[1] }}</td>
+            <td>{{ room[2] }}</td>
+            <td>{{ room[3] }}</td>
+            <td>
+                {% if room[3] == 'Available' %}
+                    <form action="{{ url_for('book') }}" method="post">
+                        <input type="hidden" name="room_id" value="{{ room[0] }}">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="text" name="contact" placeholder="Contact" required>
+                        <input type="date" name="checkin_date" required>
+                        <input type="date" name="checkout_date" required>
+                        <button type="submit">Book</button>
+                    </form>
+                {% else %}
+                    <a href="{{ url_for('checkout', room_id=room[0]) }}">Checkout</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
